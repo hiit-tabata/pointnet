@@ -46,8 +46,10 @@ def rotate_point_cloud(batch_data):
         rotation_matrix = np.array([[cosval, 0, sinval],
                                     [0, 1, 0],
                                     [-sinval, 0, cosval]])
-        shape_pc = batch_data[k, ...]
-        rotated_data[k, ...] = np.dot(shape_pc.reshape((-1, 3)), rotation_matrix)
+        shape_pc = batch_data[k, :, 0:3]
+        
+        rotated_data[k, :, 0:3] = np.dot(shape_pc.reshape((-1, 3)), rotation_matrix)
+        rotated_data[k, :, 3:] = batch_data[k, :, 3:]
     return rotated_data
 
 
