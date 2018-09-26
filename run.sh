@@ -5,5 +5,5 @@ docker run  -it --rm \
             -p 6006:6006 \
             -m 9216m \
             --cpus="5.5" \
-            holman/pointnet:latest-gpu \
+            holman/pointnet:latest-gpu-2 \
             jupyter lab --NotebookApp.token='holman' --allow-root  

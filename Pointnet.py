@@ -489,9 +489,10 @@ class Pointnet:
                 end_idx = (batch_idx+1) * self.opts['batch_size']
 
                 # Augment batched point clouds by rotation and jittering
-                rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
-                jittered_data = provider.jitter_point_cloud(rotated_data)
-                feed_dict = {self.end_points['pts_pl']: jittered_data,
+                data = current_data[start_idx:end_idx, :, :]
+#                 rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
+#                 jittered_data = provider.jitter_point_cloud(rotated_data)
+                feed_dict = {self.end_points['pts_pl']: data,
                             self.end_points['labels_pl']: current_label[start_idx:end_idx],
                             self.end_points['is_training_pl']: is_training,}
                 summary, step, _, loss_val, pred_val = sess.run([   self.end_points['merged'], 

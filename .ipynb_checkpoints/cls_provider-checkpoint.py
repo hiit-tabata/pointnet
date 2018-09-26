@@ -38,7 +38,7 @@ def rotate_point_cloud(batch_data):
         Return:
           BxNx3 array, rotated batch of point clouds
     """
-    rotated_data = np.zeros(batch_data.shape, dtype=np.float32)
+    rotated_data = np.zeros(batch_data.shape, dtype=np.float32, roated_idx=3)
     for k in range(batch_data.shape[0]):
         rotation_angle = np.random.uniform() * 2 * np.pi
         cosval = np.cos(rotation_angle)
@@ -46,10 +46,11 @@ def rotate_point_cloud(batch_data):
         rotation_matrix = np.array([[cosval, 0, sinval],
                                     [0, 1, 0],
                                     [-sinval, 0, cosval]])
-        shape_pc = batch_data[k, :, 0:3]
+        shape_pc = batch_data[k, :, 0:roated_idx]
         
-        rotated_data[k, :, 0:3] = np.dot(shape_pc.reshape((-1, 3)), rotation_matrix)
-        rotated_data[k, :, 3:] = batch_data[k, :, 3:]
+        rotated_data[k, :, 0:roated_idx] = np.dot(shape_pc.reshape((-1, roated_idx)), rotation_matrix)
+        if batch_data.shape[-1] > roated_idx:
+            rotated_data[k, :, roated_idx:] = batch_data[k, :, roated_idx:]
     return rotated_data
 
 
