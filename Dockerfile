@@ -41,5 +41,6 @@ RUN pip install ipympl
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
 RUN pip install jupyter-tensorboard && jupyter labextension install jupyterlab_tensorboard
+RUN jupyter labextension install jupyterlab-xyz-extension
 
 WORKDIR /notebooks/
